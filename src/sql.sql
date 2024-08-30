@@ -1,0 +1,16 @@
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE tarefas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    completa TINYINT(1) DEFAULT 0,
+    idUsuario INT,
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(id) ON DELETE CASCADE
+);
