@@ -11,6 +11,10 @@ CREATE TABLE tarefas (
     titulo VARCHAR(255) NOT NULL,
     descricao TEXT,
     completa TINYINT(1) DEFAULT 0,
+    categoria VARCHAR(100), 
+    prioridade VARCHAR(50),
+    dataCadastro DATETIME DEFAULT CURRENT_TIMESTAMP, 
     idUsuario INT,
     FOREIGN KEY (idUsuario) REFERENCES usuarios(id) ON DELETE CASCADE
 );
+

@@ -20,6 +20,16 @@ const esquemaTarefa = joi.object({
     completa: joi.boolean().required().messages({
         'any.required': errors.obrigatorio,
         'boolean.base': errors.isCompletInvalido
+    }),
+
+    categoria: joi.string().required().messages({
+        'any.required': errors.obrigatorio,
+        'string.empty': errors.obrigatorio
+    }),
+
+    prioridade: joi.string().required().messages({
+        'any.required': errors.obrigatorio,
+        'string.empty': errors.obrigatorio
     })
 });
 

@@ -1,14 +1,16 @@
 const knex = require("../conexao");
 
 const registrarTarefa = async (req, res) => {
-  let { titulo, descricao, completa } = req.body;
+  let { titulo, descricao, completa, categoria, prioridade } = req.body;
   const { id } = req.usuario;  
   titulo = titulo.toLowerCase();
   descricao = descricao.toLowerCase();
 
   try {
+
     const tarefaExistente = await knex("tarefas")
       .where("titulo", titulo)
+      .andWhere("idUsuario", id) 
       .first();
 
     if (tarefaExistente) {
@@ -24,6 +26,8 @@ const registrarTarefa = async (req, res) => {
       titulo: tituloFormatado,
       descricao: descricaoFormatada,
       completa: completa || false,
+      categoria, 
+      prioridade,
       idUsuario: id,  
     });
 
@@ -34,10 +38,9 @@ const registrarTarefa = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-
 const editarTarefa = async (req, res) => {
   const { id } = req.params;
-  let { titulo, descricao, completa } = req.body;
+  let { titulo, descricao, completa, categoria, prioridade } = req.body;
   const { id: idUsuario } = req.usuario;  
 
   titulo = titulo.toLowerCase();
@@ -66,9 +69,16 @@ const editarTarefa = async (req, res) => {
 
     const updatedCount = await knex("tarefas")
       .where({ id })
-      .update({ titulo: tituloFormatado, descricao: descricaoFormatada, completa, idUsuario });
+      .update({ 
+        titulo: tituloFormatado, 
+        descricao: descricaoFormatada, 
+        completa, 
+        categoria,
+        prioridade,
+        idUsuario 
+      });
 
-    if (updatedCount === 0) {
+    if (updatedCount == 0) {
       return res.status(400).json({ mensagem: "A tarefa não foi atualizada!" });
     }
 
@@ -79,6 +89,8 @@ const editarTarefa = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
+
+
 
 const listarTarefas = async (req, res) => {
   try {
