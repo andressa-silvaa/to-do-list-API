@@ -9,7 +9,9 @@ app.use(express.json());
 app.use(cors({
   origin: '*', 
 }));
-
+app.get('/', (req, res) => {
+  res.send('Hello from Express on Vercel!');
+});
 app.use(rotas);
 
 app.listen(process.env.PORT, () => {
