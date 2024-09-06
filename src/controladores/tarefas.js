@@ -82,9 +82,9 @@ const editarTarefa = async (req, res) => {
       return res.status(400).json({ mensagem: "A tarefa não foi atualizada!" });
     }
 
-    const tarefaAtualizada = await knex("tarefas").where({ id }).first();
+    const tarefa = await knex("tarefas").where({ id }).first();
     
-    return res.status(200).json({ mensagem: "Tarefa atualizada com sucesso!", tarefaAtualizada });
+    return res.status(200).json({ mensagem: "Tarefa atualizada com sucesso!", tarefa });
   } catch (error) {
     return res.status(500).json(error.message);
   }
