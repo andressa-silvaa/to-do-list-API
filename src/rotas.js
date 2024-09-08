@@ -20,7 +20,7 @@ rotas.post("/tarefa", validarCorpoRequisicao(esquemaTarefa), registrarTarefa);
 rotas.put("/tarefa/:id", validarCorpoRequisicao(esquemaTarefa), editarTarefa);
 rotas.get("/tarefa/:id", validarCorpoRequisicao(esquemaTarefa), detalharTarefa);
 rotas.get("/tarefas", listarTarefas);
-rotas.get("/tarefas/idUsuario", listarTarefasPorUsuario);
+rotas.get("/tarefas/:idUsuario", listarTarefasPorUsuario);
 rotas.delete("/tarefa/:id", deletarTarefa);
 
 module.exports = rotas;
