@@ -2,7 +2,7 @@ const express = require("express");
 const verificarUsuarioLogado = require('./intermediarios/autenticacao');
 const { login } = require('./controladores/login');
 const { registrarUsuario, perfilUsuario, editarUsuario } = require("./controladores/usuarios");
-const {editarTarefa, deletarTarefa, registrarTarefa, detalharTarefa, listarTarefas} = require("./controladores/tarefas");
+const {editarTarefa, deletarTarefa, registrarTarefa, detalharTarefa, listarTarefas,listarTarefasPorUsuario} = require("./controladores/tarefas");
 const validarCorpoRequisicao = require("./intermediarios/validarCorpoReq");
 const esquemaTarefa = require("./intermediarios/esquemaTarefa");
 const esquemaUsuario = require("./intermediarios/esquemaUsuario");
@@ -20,6 +20,7 @@ rotas.post("/tarefa", validarCorpoRequisicao(esquemaTarefa), registrarTarefa);
 rotas.put("/tarefa/:id", validarCorpoRequisicao(esquemaTarefa), editarTarefa);
 rotas.get("/tarefa/:id", validarCorpoRequisicao(esquemaTarefa), detalharTarefa);
 rotas.get("/tarefas", listarTarefas);
+rotas.get("/tarefas/idUsuario", listarTarefasPorUsuario);
 rotas.delete("/tarefa/:id", deletarTarefa);
 
 module.exports = rotas;

@@ -100,6 +100,26 @@ const listarTarefas = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
+const listarTarefasPorUsuario = async (req, res) => {
+  const { idUsuario } = req.params;  
+
+  try {
+    if (isNaN(idUsuario)) {
+      return res.status(400).json({ mensagem: "ID do usuário inválido." });
+    }
+
+    const tarefas = await knex("tarefas")
+      .where("idUsuario", idUsuario);
+
+    if (tarefas.length == 0) {
+      return res.status(404).json({ mensagem: "Nenhuma tarefa encontrada para o usuário." });
+    }
+    return res.status(200).json(tarefas);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+};
+
 
 const detalharTarefa = async (req, res) => {
   const { id } = req.params;
@@ -144,4 +164,5 @@ module.exports = {
   listarTarefas,
   detalharTarefa,
   deletarTarefa,
+  listarTarefasPorUsuario
 };
